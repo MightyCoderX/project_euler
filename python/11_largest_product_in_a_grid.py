@@ -2,11 +2,52 @@ def largest_adj_product(grid: list[list[int]], radius: int):
     width = len(grid[0])
     height = len(grid)
 
+    # TODO: use radius parameter
     largest = 0
     for y in range(height):
         for x in range(width):
+            # west
             if x >= 3:
-                prod = 
+                prod = grid[y][x] * grid[y][x-1] * grid[y][x-2] * grid[y][x-3]
+                largest = prod if prod > largest else largest
+
+            # north
+            if y >= 3:
+                prod = grid[y][x] * grid[y-1][x] * grid[y-2][x] * grid[y-3][x]
+                largest = prod if prod > largest else largest
+
+            # north-west
+            if x >= 3 and y >=3:
+                prod = grid[y][x] * grid[y-1][x-1] * grid[y-2][x-2] * grid[y-3][x-3]
+                largest = prod if prod > largest else largest
+
+            # north-east
+            if x < width - 4 and y >= 3:
+                prod = grid[y][x] * grid[y-1][x+1] * grid[y-2][x+2] * grid[y-3][x+3]
+                largest = prod if prod > largest else largest
+
+            # east
+            if x < width - 4:
+                prod = grid[y][x] * grid[y][x+1] * grid[y][x+2] * grid[y][x+3]
+                largest = prod if prod > largest else largest
+
+            # south
+            if y < height - 4:
+                prod = grid[y][x] * grid[y+1][x] * grid[y+2][x] * grid[y+3][x]
+                largest = prod if prod > largest else largest
+    
+            # south-east
+            if x < width - 4 and y < height - 4:
+                prod = grid[y][x] * grid[y+1][x+1] * grid[y+2][x+2] * grid[y+3][x+3]
+                largest = prod if prod > largest else largest
+
+            # south-west
+            if x >= 3 and y < height - 4:
+                prod = grid[y][x] * grid[y+1][x-1] * grid[y+2][x-2] * grid[y+3][x-3]
+                largest = prod if prod > largest else largest
+
+    return largest
+
             
 
 def main():
@@ -36,7 +77,7 @@ def main():
     grid = [[int(x) for x in row.split()] for row in grid.splitlines()]
 
     radius = 4
-    print(largest_adj_product(grid, radius))
+    print(largest_adj_product(grid, radius)) # 70600674
 
 if __name__ == '__main__':
     main()
