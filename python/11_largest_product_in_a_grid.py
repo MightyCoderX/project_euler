@@ -6,6 +6,7 @@ def largest_adj_product(grid: list[list[int]], radius: int):
     largest = 0
     for y in range(height):
         for x in range(width):
+            # TODO: use unit vectors to represent directions
             # west
             if x >= 3:
                 prod = grid[y][x] * grid[y][x-1] * grid[y][x-2] * grid[y][x-3]
